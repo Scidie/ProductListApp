@@ -18,7 +18,7 @@ public class Main {
         System.out.println();
 
         while (true) {
-           listOfUserProducts.addProductToList(productsDataBase, intelligentList, listOfUserProducts);
+            listOfUserProducts.addProductToList(productsDataBase, intelligentList, listOfUserProducts);
         }
     }
 }

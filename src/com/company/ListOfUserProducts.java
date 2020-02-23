@@ -6,18 +6,18 @@ public class ListOfUserProducts {
     ArrayList<UserProduct> listOfProducts = new ArrayList<>();
 
     void showTheList() {
-        for (int i = 0; i < listOfProducts.size(); i++) {
-            System.out.println("name: " + listOfProducts.get(i).getName());
-            System.out.println("id: " + listOfProducts.get(i).getId());
+        for (int i = 0; i < getListOfProducts().size(); i++) {
+            System.out.println("name: " + getListOfProducts().get(i).getName());
+            System.out.println("id: " + getListOfProducts().get(i).getId());
         }
     }
 
     Boolean isProductInDataBase(UserProduct product, ProductsDataBase productsDataBase) {
         boolean productIsInDataBase = false;
-        for (int i = 0; i < productsDataBase.listOfProducts.size(); i++) {
+        for (int i = 0; i < productsDataBase.getListOfProducts().size(); i++) {
             if (isTheSame(product.getName()) == false) {
-                if (product.getName().equals(productsDataBase.listOfProducts.get(i))) {
-                    product.id = productsDataBase.listOfProducts.indexOf(productsDataBase.listOfProducts.get(i));
+                if (product.getName().equals(productsDataBase.getListOfProducts().get(i))) {
+                    product.id = productsDataBase.getListOfProducts().indexOf(productsDataBase.getListOfProducts().get(i));
                     productIsInDataBase = true;
                     break;
                 }
@@ -28,18 +28,18 @@ public class ListOfUserProducts {
 
     boolean isTheSame(String product) {
         boolean isTheSame = false;
-        for (int i = 0; i < listOfProducts.size(); i++) {
-            if (product.equals(listOfProducts.get(i).getName()) && listOfProducts.size() > 0) {
+        for (int i = 0; i < getListOfProducts().size(); i++) {
+            if (product.equals(getListOfProducts().get(i).getName()) && listOfProducts.size() > 0) {
                 isTheSame = true;
             }
         }
         return isTheSame;
     }
 
-    UserProduct findLowestIdProduct() {
+    UserProduct theLowestIdProduct() {
         ArrayList<UserProduct> copyOfListOfproducts = new ArrayList<>();
-        for (int i = 0; i < listOfProducts.size(); i++) {
-            copyOfListOfproducts.add(listOfProducts.get(i));
+        for (int i = 0; i < getListOfProducts().size(); i++) {
+            copyOfListOfproducts.add(getListOfProducts().get(i));
         }
 
         while (copyOfListOfproducts.size() > 1) {
@@ -53,12 +53,28 @@ public class ListOfUserProducts {
         return copyOfListOfproducts.get(0);
     }
 
+    void createIntelligentList(IntelligentList intelligentList) {
+        ArrayList<UserProduct> copyOfListOfProducts = new ArrayList<>();
+//        for (int i = 0; i < getListOfProducts().size(); i++) {
+//            copyOfListOfProducts.add(getListOfProducts().get(i));
+//        }
+        while (listOfProducts.size() >= 1) {
+            UserProduct product = theLowestIdProduct();
+            intelligentList.addProductToList(product);
+            getListOfProducts().remove(product);
+        }
+//        for (int i = 0; i < copyOfListOfProducts.size(); i++) {
+//            getListOfProducts().add(copyOfListOfProducts.get(i));
+//        }
+
+    }
+
     int setId(UserProduct product, ProductsDataBase productsDataBase) {
         int id = 0;
-        for (int i = 0; i < productsDataBase.listOfProducts.size(); i++) {
-                if (product.getName().equals(productsDataBase.listOfProducts.get(i))) {
-                    id = productsDataBase.listOfProducts.indexOf(productsDataBase.listOfProducts.get(i));
-                }
+        for (int i = 0; i < productsDataBase.getListOfProducts().size(); i++) {
+            if (product.getName().equals(productsDataBase.getListOfProducts().get(i))) {
+                id = productsDataBase.getListOfProducts().indexOf(productsDataBase.getListOfProducts().get(i));
+            }
         }
         return id;
     }
@@ -81,20 +97,8 @@ public class ListOfUserProducts {
         }
     }
 
-    void createIntelligentList(IntelligentList intelligentList) {
-        ArrayList<UserProduct> libraryOfUserProducts = new ArrayList<>();
-        for (int i = 0; i < listOfProducts.size(); i++) {
-            libraryOfUserProducts.add(listOfProducts.get(i));
-        }
-        while (listOfProducts.size() >= 1) {
-            UserProduct product = findLowestIdProduct();
-            intelligentList.addProductToList(product);
-            listOfProducts.remove(product);
-        }
-        for (int i = 0; i < libraryOfUserProducts.size(); i++) {
-            listOfProducts.add(libraryOfUserProducts.get(i));
-        }
-
+    public ArrayList<UserProduct> getListOfProducts() {
+        return listOfProducts;
     }
 }
 

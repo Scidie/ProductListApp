@@ -16,7 +16,8 @@ public class UserProduct {
         this.quantity = getString();
     }
 
-    public UserProduct(){}
+    public UserProduct() {
+    }
 
     public String getName() {
         return name;
