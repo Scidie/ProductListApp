@@ -43,7 +43,7 @@ public class ListOfUserProducts {
         }
 
         while (copyOfListOfproducts.size() > 1) {
-            if (copyOfListOfproducts.get(0).getId() > copyOfListOfproducts.get(1).getId()) {
+            if (copyOfListOfproducts.get(0).getId() > getListOfProducts().get(1).getId()) {
                 copyOfListOfproducts.remove(0);
 
             } else {
@@ -55,17 +55,17 @@ public class ListOfUserProducts {
 
     void createIntelligentList(IntelligentList intelligentList) {
         ArrayList<UserProduct> copyOfListOfProducts = new ArrayList<>();
-//        for (int i = 0; i < getListOfProducts().size(); i++) {
-//            copyOfListOfProducts.add(getListOfProducts().get(i));
-//        }
-        while (listOfProducts.size() >= 1) {
+        for (int i = 0; i < getListOfProducts().size(); i++) {
+            copyOfListOfProducts.add(getListOfProducts().get(i));
+        }
+        while (getListOfProducts().size() >= 1) {
             UserProduct product = theLowestIdProduct();
             intelligentList.addProductToList(product);
             getListOfProducts().remove(product);
         }
-//        for (int i = 0; i < copyOfListOfProducts.size(); i++) {
-//            getListOfProducts().add(copyOfListOfProducts.get(i));
-//        }
+        for (int i = 0; i < copyOfListOfProducts.size(); i++) {
+            getListOfProducts().add(copyOfListOfProducts.get(i));
+        }
 
     }
 
@@ -82,14 +82,12 @@ public class ListOfUserProducts {
     void addProductToList(ProductsDataBase productsDataBase, IntelligentList intelligentList, ListOfUserProducts listOfUserProducts) {
         UserProduct product = new UserProduct();
         product.setName();
-        if (product.validateName() == true) {
-            if (isProductInDataBase(product, productsDataBase) == true && isTheSame(product.getName()) == false) {
-                listOfProducts.add(new UserProduct(product.getName(), setId(product, productsDataBase)));
-            } else if (isTheSame(product.getName())) {
-                System.out.println("This product is already in your list...");
-            } else {
-                System.out.println("product does not match, try something else...");
-            }
+        if (isProductInDataBase(product, productsDataBase) == true && isTheSame(product.getName()) == false && product.getName().equals("G") == false) {
+            listOfProducts.add(new UserProduct(product.getName(), setId(product, productsDataBase)));
+        } else if (isTheSame(product.getName()) && product.getName().equals("G") == false) {
+            System.out.println("This product is already in your list...");
+        } else if (product.getName().equals("G") == false) {
+            System.out.println("product does not match, try something else...");
         } else {
             listOfUserProducts.createIntelligentList(intelligentList);
             intelligentList.showTheList();
