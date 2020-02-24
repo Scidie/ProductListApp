@@ -43,7 +43,7 @@ public class ListOfUserProducts {
         }
 
         while (copyOfListOfproducts.size() > 1) {
-            if (copyOfListOfproducts.get(0).getId() > getListOfProducts().get(1).getId()) {
+            if (copyOfListOfproducts.get(0).getId() > copyOfListOfproducts.get(1).getId()) {
                 copyOfListOfproducts.remove(0);
 
             } else {
